@@ -1,0 +1,92 @@
+{
+  "testedAt": "2026-09-13T15:25:50.907Z",
+  "checks": [
+    {
+      "name": "375px layout: no horizontal overflow",
+      "result": "PASS",
+      "detail": "{\"width\":375,\"scroll\":375,\"overflow\":[]}"
+    },
+    {
+      "name": "768px layout: no horizontal overflow",
+      "result": "PASS",
+      "detail": "{\"width\":768,\"scroll\":768,\"overflow\":[]}"
+    },
+    {
+      "name": "1440px layout: no horizontal overflow",
+      "result": "PASS",
+      "detail": "{\"width\":1440,\"scroll\":1440,\"overflow\":[]}"
+    },
+    {
+      "name": "Mobile navigation, anchor navigation, Escape and focus",
+      "result": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "Elapsed same-day Colombo start times are disabled",
+      "result": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "Required-field and past-date validation; Colombo date despite US browser timezone",
+      "result": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "Unavailable slots cannot be selected; sport/venue changes clear slot and update summary/contact",
+      "result": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "Invalid name/phone, international Sri Lankan phone, complete booking and focused simulated confirmation",
+      "result": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "Reset clears booking data, errors, confirmation and selection",
+      "result": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "Local Sri Lankan phone accepted; resetting during loading cancels confirmation",
+      "result": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "Facility CTAs preselect the correct demo sport",
+      "result": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "Gallery: all 6 assets, next/previous wrap, arrow keys, Escape, close, modal focus and focus restoration",
+      "result": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "FAQ mouse and keyboard accordion",
+      "result": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "Reduced motion support",
+      "result": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "file:// and offline reload work; all images/fonts local; zero HTTP requests",
+      "result": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "No JavaScript or browser console errors",
+      "result": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "Additional 320px and 1920px overflow checks",
+      "result": "PASS",
+      "detail": ""
+    }
+  ],
+  "errors": [],
+  "requests": []
+}

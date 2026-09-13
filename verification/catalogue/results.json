@@ -1,0 +1,63 @@
+{
+  "testedAt": "2026-09-13T16:00:45.763Z",
+  "checks": [
+    {
+      "name": "375px responsive layout without overflow",
+      "result": "PASS"
+    },
+    {
+      "name": "768px responsive layout without overflow",
+      "result": "PASS"
+    },
+    {
+      "name": "1440px responsive layout without overflow",
+      "result": "PASS"
+    },
+    {
+      "name": "Booking removed; all internal links resolve",
+      "result": "PASS"
+    },
+    {
+      "name": "Category filters and selected states",
+      "result": "PASS"
+    },
+    {
+      "name": "Search, combined filtering, empty state, reset and clear focus",
+      "result": "PASS"
+    },
+    {
+      "name": "All six product details/images/links, Escape and modal focus cycling/restoration",
+      "result": "PASS"
+    },
+    {
+      "name": "Mobile menu navigation, Escape and focus",
+      "result": "PASS"
+    },
+    {
+      "name": "Mobile product details fit and close",
+      "result": "PASS"
+    },
+    {
+      "name": "Gallery buttons, arrow keys and focus preserved",
+      "result": "PASS"
+    },
+    {
+      "name": "Updated FAQ pointer and keyboard controls",
+      "result": "PASS"
+    },
+    {
+      "name": "Verified showroom contacts separate from venue contacts",
+      "result": "PASS"
+    },
+    {
+      "name": "Offline file and product details; local assets; reduced motion; zero network/console errors",
+      "result": "PASS"
+    },
+    {
+      "name": "Additional 320px and 1920px overflow checks",
+      "result": "PASS"
+    }
+  ],
+  "errors": [],
+  "requests": []
+}

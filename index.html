@@ -1,0 +1,1816 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Explore sports equipment, fitness products and indoor sports at Befit in Sri Lanka. Browse the product collection and contact a showroom or venue.">
+  <meta name="theme-color" content="#111813">
+  <title>Befit — Gear up. Get out. Play.</title>
+  <style>
+
+    /* 1. Local typography and shared design tokens */
+    @font-face {
+      font-family:Barlow;
+      src:url('assets/barlow-condensed-bold.ttf') format('truetype');
+      font-weight:700;
+      font-display:swap
+    }
+    @font-face {
+      font-family:Manrope;
+      src:url('assets/manrope.ttf') format('truetype');
+      font-weight:200 800;
+      font-display:swap
+    }
+    :root {
+      --ink:#142017;
+      --dark:#111813;
+      --green:#52b848;
+      --lime:#bbf36c;
+      --paper:#f5f5ee;
+      --white:#fff;
+      --muted:#586057;
+      --line:#d9ddd3;
+      --display:Barlow,'Arial Narrow',sans-serif;
+      --body:Manrope,'Segoe UI',sans-serif;
+      --radius:5px
+    }
+    *,*::before,*::after {
+      box-sizing:border-box
+    }
+    html {
+      scroll-behavior:smooth;
+      scroll-padding-top:100px
+    }
+    body {
+      margin:0;
+      background:var(--paper);
+      color:var(--ink);
+      font-family:var(--body);
+      font-size:15px;
+      line-height:1.65
+    }
+    body.modal-open {
+      overflow:hidden
+    }
+    button,input,select {
+      font:inherit
+    }
+    button,a,input,select,summary {
+      -webkit-tap-highlight-color:transparent
+    }
+    button,a {
+      touch-action:manipulation
+    }
+    button {
+      cursor:pointer
+    }
+    a {
+      color:inherit;
+      text-decoration:none
+    }
+    img {
+      display:block;
+      max-width:100%
+    }
+    button {
+      color:inherit
+    }
+    h1,h2,h3,p {
+      margin:0
+    }
+    h1,h2,.display {
+      font-family:var(--display);
+      font-weight:700;
+      text-transform:uppercase;
+      line-height:.95;
+      letter-spacing:-.02em
+    }
+    h2 {
+      font-size:clamp(46px,5vw,74px)
+    }
+    h3 {
+      font-weight:800
+    }
+    p {
+      color:var(--muted)
+    }
+    button:disabled {
+      cursor:not-allowed
+    }
+    :focus-visible {
+      outline:3px solid #327b23;
+      outline-offset:5px
+    }
+    .dark :focus-visible,header :focus-visible,dialog :focus-visible {
+      outline-color:var(--lime)
+    }
+    [hidden] {
+      display:none!important
+    }
+    ::selection {
+      background:var(--lime);
+      color:var(--dark)
+    }
+    .container {
+      width:min(1280px,calc(100% - 96px));
+      margin-inline:auto
+    }
+    .section {
+      padding:100px 0
+    }
+    .eyebrow {
+      font-size:11px;
+      font-weight:800;
+      letter-spacing:.17em;
+      text-transform:uppercase;
+      display:flex;
+      gap:10px;
+      align-items:center;
+      margin-bottom:20px
+    }
+    .eyebrow::before {
+      content:'';
+      width:20px;
+      height:2px;
+      background:currentColor
+    }
+    .btn {
+      display:inline-flex;
+      justify-content:center;
+      align-items:center;
+      gap:28px;
+      min-height:52px;
+      padding:13px 23px;
+      border:1px solid transparent;
+      border-radius:var(--radius);
+      font-size:13px;
+      font-weight:800;
+      transition:background .2s,transform .2s
+    }
+    .btn:hover {
+      transform:translateY(-2px)
+    }
+    .btn-primary {
+      background:var(--lime);
+      color:var(--dark)
+    }
+    .btn-primary:hover {
+      background:#cef998
+    }
+    .btn-dark {
+      background:var(--dark);
+      color:white
+    }
+    .btn-dark:hover {
+      background:#2c4230
+    }
+    .btn-outline {
+      border-color:#647064;
+      color:#fff;
+      background:transparent
+    }
+    .btn-outline:hover {
+      background:#ffffff12
+    }
+    .arrow {
+      font-size:22px;
+      line-height:1;
+      font-weight:400
+    }
+    .text-link {
+      font-weight:800;
+      font-size:13px;
+      display:inline-flex;
+      gap:24px;
+      align-items:center;
+      min-height:44px;
+      border-bottom:1px solid currentColor
+    }
+    .text-link:hover {
+      color:#326426
+    }
+    .section-top {
+      display:flex;
+      align-items:flex-end;
+      justify-content:space-between;
+      gap:40px;
+      margin-bottom:42px
+    }
+    .section-top>p {
+      max-width:340px
+    }
+    .skip {
+      position:fixed;
+      top:8px;
+      left:8px;
+      background:var(--lime);
+      color:var(--dark);
+      padding:12px;
+      z-index:100;
+      transform:translateY(-150%)
+    }
+    .skip:focus {
+      transform:none
+    }
+    .sr-only {
+      position:absolute;
+      width:1px;
+      height:1px;
+      padding:0;
+      margin:-1px;
+      overflow:hidden;
+      clip:rect(0,0,0,0);
+      white-space:nowrap;
+      border:0
+    }
+
+    /* 2. Navigation and the first screen */
+    .proposal-bar {
+      background:var(--lime);
+      color:var(--dark);
+      text-align:center;
+      padding:6px 16px;
+      font-size:10px;
+      letter-spacing:.07em;
+      font-weight:700
+    }
+    .proposal-bar span {
+      margin:0 9px;
+      opacity:.5
+    }
+    header {
+      background:var(--dark);
+      color:#fff;
+      position:sticky;
+      top:0;
+      z-index:30;
+      border-bottom:1px solid #ffffff16
+    }
+    .nav-inner {
+      height:84px;
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:30px
+    }
+    .brand img {
+      width:166px;
+      height:auto
+    }
+    .nav-links {
+      display:flex;
+      align-items:center;
+      gap:31px
+    }
+    .nav-links>a:not(.btn) {
+      font-size:12px;
+      color:#d4d9d3;
+      position:relative;
+      padding:12px 0
+    }
+    .nav-links>a:not(.btn):hover {
+      color:var(--lime)
+    }
+    .nav-links .btn {
+      margin-left:18px;
+      min-height:44px;
+      padding:10px 18px
+    }
+    .menu-toggle {
+      display:none;
+      background:transparent;
+      border:1px solid #677066;
+      border-radius:4px;
+      min-width:48px;
+      min-height:44px;
+      color:white
+    }
+    .hero {
+      position:relative;
+      background:var(--dark);
+      color:white;
+      isolation:isolate;
+      min-height:665px;
+      overflow:hidden
+    }
+    .hero-photo {
+      position:absolute;
+      right:0;
+      top:0;
+      width:67%;
+      height:100%;
+      object-fit:cover;
+      object-position:50% 61%;
+      z-index:-3
+    }
+    .hero::before {
+      content:'';
+      position:absolute;
+      inset:0;
+      background:linear-gradient(90deg,#111813 9%,rgba(17,24,19,.96) 27%,rgba(17,24,19,.42) 65%,rgba(17,24,19,.08)),linear-gradient(0deg,#1118139e,transparent 40%);
+      z-index:-2
+    }
+    .hero-content {
+      padding-top:70px;
+      padding-bottom:112px;
+      position:relative
+    }
+    .hero .eyebrow {
+      color:var(--lime);
+      margin-bottom:25px
+    }
+    .hero h1 {
+      font-size:clamp(80px,8.6vw,128px);
+      max-width:800px;
+      line-height:.88
+    }
+    .hero h1 span {
+      display:block;
+      color:var(--lime)
+    }
+    .hero-description {
+      font-size:15px;
+      max-width:397px;
+      color:#c7d0c7;
+      margin-top:27px
+    }
+    .hero-actions {
+      display:flex;
+      align-items:center;
+      gap:14px;
+      margin-top:29px
+    }
+    .hero-caption {
+      position:absolute;
+      right:0;
+      bottom:90px;
+      color:#dde5d8;
+      font-size:10px;
+      letter-spacing:.1em;
+      text-transform:uppercase;
+      writing-mode:vertical-rl
+    }
+    .hero-bottom {
+      position:absolute;
+      bottom:24px;
+      left:0;
+      right:0;
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:20px
+    }
+    .hero-bottom p {
+      color:#b6c0b4;
+      font-size:10px;
+      letter-spacing:.13em;
+      text-transform:uppercase
+    }
+    .hero-bottom a {
+      color:#c7d0c7;
+      font-size:11px
+    }
+    .hero-bottom a span {
+      margin-left:12px
+    }
+    .sport-ribbon {
+      background:var(--lime);
+      padding:24px 0
+    }
+    .ribbon-inner {
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+      gap:20px
+    }
+    .ribbon-inner span {
+      font-family:var(--display);
+      font-size:25px;
+      line-height:1;
+      text-transform:uppercase
+    }
+    .ribbon-inner i {
+      font-style:normal;
+      font-size:18px;
+      color:#3e672b
+    }
+    .ribbon-inner .ribbon-label {
+      font-family:var(--body);
+      font-size:10px;
+      font-weight:800;
+      letter-spacing:.12em;
+      line-height:1.5;
+      max-width:100px
+    }
+
+    /* 3. Editorial facilities layout */
+    .facilities-grid {
+      display:grid;
+      grid-template-columns:1.1fr 1fr;
+      gap:64px;
+      align-items:stretch
+    }
+    .facility-image {
+      position:relative;
+      min-height:530px;
+      background:#203322;
+      border-radius:6px;
+      overflow:hidden
+    }
+    .facility-image>img {
+      width:100%;
+      height:100%;
+      position:absolute;
+      inset:0;
+      object-fit:cover;
+      object-position:center 63%
+    }
+    .image-tag {
+      position:absolute;
+      bottom:22px;
+      left:22px;
+      right:22px;
+      padding:14px 18px;
+      background:#111813e8;
+      color:#fff;
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+      font-size:11px
+    }
+    .image-tag span {
+      color:var(--lime)
+    }
+    .facility-list {
+      border-top:1px solid var(--line)
+    }
+    .facility-row {
+      display:grid;
+      grid-template-columns:35px 1fr 40px;
+      gap:16px;
+      padding:25px 0;
+      border-bottom:1px solid var(--line);
+      align-items:start
+    }
+    .facility-number {
+      font-size:11px;
+      color:#657060;
+      padding-top:7px
+    }
+    .facility-row h3 {
+      font-family:var(--display);
+      text-transform:uppercase;
+      font-size:34px;
+      line-height:1.1;
+      margin-bottom:8px
+    }
+    .facility-row p {
+      font-size:13px;
+      max-width:340px
+    }
+    .round-link {
+      width:40px;
+      height:40px;
+      border:1px solid #b9c3b4;
+      border-radius:50%;
+      display:grid;
+      place-items:center;
+      transition:background .2s,transform .2s
+    }
+    .round-link:hover {
+      background:var(--lime);
+      transform:rotate(-35deg)
+    }
+    .facility-note {
+      font-size:11px;
+      margin-top:17px;
+      max-width:460px
+    }
+
+    /* 5. Gallery, contact and the rest of the page */
+    .gallery-grid {
+      display:grid;
+      grid-template-columns:1.5fr 1fr 1fr;
+      gap:16px
+    }
+    .gallery-item {
+      position:relative;
+      padding:0;
+      border:0;
+      background:#1d3221;
+      text-align:left;
+      border-radius:5px;
+      overflow:hidden;
+      min-height:330px
+    }
+    .gallery-item img {
+      width:100%;
+      height:100%;
+      position:absolute;
+      inset:0;
+      object-fit:cover;
+      transition:transform .5s
+    }
+    .gallery-item:hover img {
+      transform:scale(1.045)
+    }
+    .gallery-item::after {
+      content:'';
+      position:absolute;
+      inset:35% 0 0;
+      background:linear-gradient(transparent,#000b)
+    }
+    .gallery-caption {
+      position:absolute;
+      bottom:21px;
+      left:20px;
+      right:20px;
+      z-index:1;
+      color:white;
+      font-size:11px;
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+      gap:10px
+    }
+    .gallery-caption b {
+      background:#ffffff22;
+      border:1px solid #ffffff66;
+      border-radius:50%;
+      width:30px;
+      height:30px;
+      display:grid;
+      place-items:center;
+      font-size:17px
+    }
+    .gallery-foot {
+      display:flex;
+      justify-content:space-between;
+      gap:20px;
+      margin-top:19px
+    }
+    .gallery-foot p {
+      font-size:10px;
+      max-width:610px
+    }
+    .gallery-foot button {
+      background:transparent;
+      border:0;
+      border-bottom:1px solid #53634d;
+      padding:0 0 3px;
+      font-size:11px;
+      font-weight:800;
+      white-space:nowrap;
+      min-height:44px
+    }
+    .visit {
+      background:var(--dark);
+      color:white
+    }
+    .visit .eyebrow {
+      color:var(--lime)
+    }
+    .visit-top {
+      display:grid;
+      grid-template-columns:1fr 1fr;
+      gap:80px;
+      margin-bottom:50px;
+      align-items:end
+    }
+    .visit-top p {
+      color:#b3c0ac;
+      max-width:405px
+    }
+    .venue-grid {
+      display:grid;
+      grid-template-columns:repeat(3,1fr);
+      border-top:1px solid #52604a;
+      border-bottom:1px solid #52604a
+    }
+    .venue {
+      padding:28px 26px 30px 0
+    }
+    .venue+.venue {
+      border-left:1px solid #52604a;
+      padding-left:30px
+    }
+    .venue .venue-index {
+      font-size:10px;
+      color:var(--lime)
+    }
+    .venue h3 {
+      font-family:var(--display);
+      font-size:34px;
+      text-transform:uppercase;
+      margin:12px 0
+    }
+    .venue p {
+      color:#aebea5;
+      font-size:12px;
+      min-height:65px
+    }
+    .venue>a {
+      display:block;
+      margin-top:18px;
+      font-size:16px;
+      font-weight:700
+    }
+    .venue .directions {
+      font-size:11px;
+      color:var(--lime);
+      font-weight:600;
+      text-decoration:underline;
+      text-underline-offset:5px;
+      margin-top:12px;
+      min-height:35px
+    }
+    .venue .contact-label {
+      display:block;
+      font-size:10px;
+      color:#aebea5;
+      margin-top:9px
+    }
+    .contact-strip {
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:28px;
+      padding-top:30px
+    }
+    .contact-strip p {
+      font-size:11px;
+      color:#b2c1a8
+    }
+    .contact-strip a {
+      font-size:12px;
+      text-decoration:underline;
+      text-underline-offset:5px
+    }
+    .faq-grid {
+      display:grid;
+      grid-template-columns:.85fr 1.4fr;
+      gap:100px
+    }
+    .faq-intro p {
+      font-size:13px;
+      margin-top:22px;
+      max-width:260px
+    }
+    .faq-intro .text-link {
+      margin-top:20px
+    }
+    .faq-list {
+      border-top:1px solid #bfcab5
+    }
+    .faq-list details {
+      border-bottom:1px solid #cbd4c3;
+      padding:0
+    }
+    .faq-list summary {
+      list-style:none;
+      cursor:pointer;
+      padding:22px 36px 22px 0;
+      font-size:13px;
+      font-weight:800;
+      position:relative
+    }
+    .faq-list summary::-webkit-details-marker {
+      display:none
+    }
+    .faq-list summary::after {
+      content:'+';
+      position:absolute;
+      right:3px;
+      top:15px;
+      font-size:26px;
+      font-weight:400
+    }
+    .faq-list details[open] summary::after {
+      content:'−'
+    }
+    .faq-list details p {
+      font-size:12px;
+      padding:0 30px 24px 0;
+      max-width:610px
+    }
+    .more-befit {
+      border-top:1px solid var(--line);
+      padding:35px 0
+    }
+    .more-inner {
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:35px
+    }
+    .more-inner h3 {
+      font-family:var(--display);
+      font-size:31px;
+      text-transform:uppercase
+    }
+    .more-inner p {
+      font-size:11px;
+      margin-top:4px
+    }
+    .more-links {
+      display:flex;
+      gap:30px
+    }
+    .more-links a {
+      font-size:12px;
+      font-weight:800;
+      padding:10px 0;
+      border-bottom:1px solid #acb8a3
+    }
+    .closing {
+      background:var(--lime);
+      padding:53px 0
+    }
+    .closing-inner {
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:30px
+    }
+    .closing h2 {
+      font-size:clamp(43px,5.5vw,78px)
+    }
+    footer {
+      background:#0d140f;
+      color:#c4cfbb;
+      padding:35px 0 22px
+    }
+    .footer-top {
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+      gap:25px
+    }
+    .footer-top img {
+      width:140px;
+      height:auto
+    }
+    .footer-links {
+      display:flex;
+      gap:25px;
+      font-size:11px
+    }
+    .footer-bottom {
+      margin-top:27px;
+      border-top:1px solid #364231;
+      padding-top:20px;
+      display:flex;
+      justify-content:space-between;
+      gap:30px;
+      font-size:9px;
+      color:#98a58f
+    }
+    .footer-bottom p {
+      font-size:9px;
+      color:#98a58f
+    }
+    .lightbox {
+      width:min(1100px,94vw);
+      max-width:none;
+      border:1px solid #516347;
+      border-radius:8px;
+      background:var(--dark);
+      padding:20px;
+      color:#fff;
+      max-height:94dvh
+    }
+    .lightbox::backdrop {
+      background:#071007eb
+    }
+    .lightbox-top {
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:20px;
+      margin-bottom:16px
+    }
+    .lightbox-top h2 {
+      font-family:var(--body);
+      font-size:12px;
+      letter-spacing:0;
+      line-height:1.5;
+      text-transform:none
+    }
+    .icon-btn {
+      width:44px;
+      height:44px;
+      display:grid;
+      place-items:center;
+      background:transparent;
+      color:#fff;
+      border:1px solid #687761;
+      border-radius:50%;
+      font-size:23px
+    }
+    .icon-btn:hover {
+      background:#384a2e
+    }
+    .lightbox-image {
+      width:100%;
+      height:min(66vh,700px);
+      object-fit:contain;
+      background:#0a100c
+    }
+    .lightbox-bottom {
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:20px;
+      padding-top:17px
+    }
+    .lightbox-bottom p {
+      font-size:11px;
+      color:#c5d3bc
+    }
+    .lightbox-controls {
+      display:flex;
+      gap:9px
+    }
+    .noscript {
+      background:#fff3cb;
+      padding:20px;
+      text-align:center;
+      font-weight:700
+    }
+
+
+    /* Product catalogue: local images, search/filter states and an enquiry-first detail view. */
+    .catalogue { background:#f5f5ee; }
+    .catalogue-toolbar { display:flex; align-items:center; justify-content:space-between; gap:25px; border-bottom:1px solid var(--line); padding-bottom:22px; }
+    .product-filters { display:flex; flex-wrap:wrap; gap:8px; }
+    .product-filters button { background:transparent; border:1px solid #c9d2c1; border-radius:4px; padding:10px 15px; min-height:44px; font-size:11px; font-weight:800; }
+    .product-filters button:hover { background:#e2ebd9; }
+    .product-filters button[aria-pressed="true"] { background:var(--dark); color:var(--lime); border-color:var(--dark); }
+    .product-search { display:flex; align-items:center; width:260px; flex-shrink:0; gap:10px; padding:0 13px; border:1px solid #b8c4b0; border-radius:4px; background:#fff; }
+    .product-search>span { font-size:27px; }
+    .product-search input { min-width:0; width:100%; background:transparent; border:0; padding:13px 0; font-size:12px; color:var(--ink); }
+    .product-search input::-webkit-search-cancel-button { -webkit-appearance:none; }
+    .product-search button { background:none; border:0; min-width:32px; min-height:44px; font-size:22px; }
+    .catalogue-meta { display:flex; justify-content:space-between; gap:20px; font-size:10px; color:var(--muted); padding:19px 0 25px; }
+    .product-grid { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:34px 25px; }
+    .product-card { min-width:0; }
+    .product-open { display:block; width:100%; text-align:left; padding:0; border:0; background:transparent; }
+    .product-image { background:#fff; border:1px solid #e5e8df; border-radius:6px; height:270px; display:grid; place-items:center; position:relative; overflow:hidden; }
+    .product-image img { width:190px; height:190px; object-fit:contain; transition:transform .25s; }
+    .product-open:hover .product-image img { transform:scale(1.045); }
+    .product-view { position:absolute; bottom:12px; right:12px; background:var(--dark); color:#fff; font-size:10px; padding:7px 12px; border-radius:3px; }
+    .product-category { display:block; margin-top:18px; font-size:9px; text-transform:uppercase; letter-spacing:.12em; color:#586c4c; font-weight:800; }
+    .product-open h3 { font-size:18px; line-height:1.4; margin-top:5px; }
+    .product-bottom { display:flex; justify-content:space-between; align-items:center; gap:10px; border-bottom:1px solid #cbd5c2; padding:6px 0 12px; }
+    .product-bottom>span { font-size:11px; color:#626b5b; }
+    .product-bottom>button { border:1px solid #b7c6aa; border-radius:50%; width:40px; height:40px; background:transparent; font-size:20px; }
+    .product-bottom>button:hover { background:var(--lime); }
+    .catalogue-footer { display:flex; justify-content:space-between; align-items:center; gap:25px; margin-top:35px; }
+    .catalogue-footer p { font-size:11px; }
+    .product-empty { background:#e8edde; padding:48px 25px; border-radius:5px; text-align:center; }
+    .product-empty h3 { font-family:var(--display); font-size:38px; text-transform:uppercase; }
+    .product-empty p { margin:10px 0 23px; }
+    #sports { border-top:1px solid var(--line); }
+    .showrooms { background:#e9ede3; border-top:1px solid var(--line); }
+    .showroom-grid { display:grid; grid-template-columns:1fr 1fr; border-top:1px solid #b5c5a8; border-bottom:1px solid #b5c5a8; }
+    .showroom { padding:32px 35px 30px 0; display:flex; gap:30px; }
+    .showroom+.showroom { border-left:1px solid #b5c5a8; padding-left:40px; }
+    .showroom-number { font-family:var(--display); font-size:65px; line-height:1; color:#728c61; }
+    .showroom .eyebrow { font-size:9px; margin:0 0 8px; }
+    .showroom h3 { font-family:var(--display); font-size:40px; line-height:1; text-transform:uppercase; }
+    .showroom address { font-style:normal; font-size:13px; color:#526248; margin:17px 0 14px; }
+    .showroom-note { display:flex; justify-content:space-between; align-items:center; gap:24px; padding-top:25px; font-size:11px; }
+    .showroom-note a { font-weight:800; text-decoration:underline; text-underline-offset:4px; white-space:nowrap; }
+    .product-dialog { background:var(--paper); color:var(--ink); width:min(980px,94vw); max-width:none; max-height:92dvh; border:1px solid #839774; padding:26px; border-radius:8px; }
+    .product-dialog::backdrop { background:#071007df; }
+    .product-dialog-top { display:flex; justify-content:space-between; align-items:center; gap:20px; margin-bottom:25px; font-size:10px; letter-spacing:.12em; font-weight:800; }
+    .product-close { width:44px; height:44px; border:1px solid #a9b99c; border-radius:50%; background:transparent; font-size:26px; }
+    .product-close:hover { background:var(--lime); }
+    .product-detail-layout { display:grid; grid-template-columns:1fr 1.1fr; gap:35px; align-items:start; }
+    .product-detail-image { background:#fff; min-height:350px; display:grid; place-items:center; border:1px solid #e2e6db; border-radius:5px; }
+    .product-detail-image img { width:225px; height:225px; object-fit:contain; }
+    .product-detail-copy .eyebrow { font-size:10px; margin-bottom:15px; }
+    .product-detail-copy h2 { font-size:50px; margin-bottom:22px; overflow-wrap:anywhere; }
+    #product-description { font-size:13px; }
+    .product-facts { border-top:1px solid #c7d2bc; border-bottom:1px solid #c7d2bc; padding:18px 0; margin:23px 0; display:grid; gap:13px; }
+    .product-facts>div { display:flex; justify-content:space-between; gap:20px; font-size:11px; }
+    .product-facts dt { color:#5d6b51; }
+    .product-facts dd { margin:0; font-weight:800; text-align:right; }
+    .product-enquiry-note { font-size:11px; }
+    .product-enquiry-links { display:flex; gap:10px; flex-wrap:wrap; margin-top:17px; }
+    .product-enquiry-links .btn { font-size:11px; gap:16px; padding-inline:17px; }
+    .product-secondary { border:1px solid #a3b297; }
+    .product-secondary:hover { background:#e0ead5; }
+    .product-source { font-size:10px; margin-top:16px; gap:10px; }
+    .product-source-note { font-size:9px; margin-top:16px; }
+    @media(max-width:1000px) {
+      .catalogue-toolbar { align-items:stretch; flex-direction:column; gap:18px; }
+      .product-search { width:100%; }
+      .product-image { height:225px; }
+      .product-image img { width:160px; height:160px; }
+      .product-open h3 { font-size:16px; }
+    }
+    @media(max-width:700px) {
+      .product-grid { grid-template-columns:repeat(2,minmax(0,1fr)); gap:25px 14px; }
+      .product-image { height:205px; }
+      .showroom-grid { grid-template-columns:1fr; }
+      .showroom+.showroom { border-left:0; border-top:1px solid #b5c5a8; padding-left:0; }
+      .product-detail-layout { grid-template-columns:1fr; gap:25px; }
+      .product-detail-image { min-height:240px; }
+      .product-detail-copy h2 { font-size:43px; }
+      .product-detail-image img { width:200px; height:200px; }
+    }
+    @media(max-width:560px) {
+      .product-filters { gap:6px; }
+      .product-filters button { padding:8px 12px; font-size:10px; }
+      .catalogue-meta { flex-direction:column; gap:4px; font-size:9px; padding-block:15px 22px; }
+      .product-image { height:185px; }
+      .product-image img { width:130px; height:130px; }
+      .product-view { padding:5px 8px; bottom:8px; right:8px; font-size:8px; }
+      .product-open h3 { font-size:13px; min-height:38px; }
+      .product-category { font-size:8px; margin-top:12px; }
+      .product-bottom>span { font-size:9px; }
+      .product-bottom>button { width:36px; height:36px; flex-shrink:0; }
+      .catalogue-footer,.showroom-note { align-items:start; flex-direction:column; gap:12px; }
+      .showroom { gap:22px; padding-right:0; }
+      .showroom-number { font-size:55px; }
+      .showroom address { font-size:12px; }
+      .product-dialog { padding:18px; width:94vw; }
+      .product-detail-image { min-height:220px; }
+      .product-detail-copy h2 { font-size:39px; }
+      .product-empty h3 { font-size:32px; }
+    }
+
+    /* 6. Responsive layouts and motion preferences */
+    @media(min-width:1550px) {
+      .hero {
+        min-height:750px
+      }
+      .hero-content {
+        padding-top:90px
+      }
+      .hero h1 {
+        font-size:140px
+      }
+    }
+    @media(max-width:1100px) {
+      .container {
+        width:calc(100% - 64px)
+      }
+      .nav-links {
+        gap:21px
+      }
+      .facilities-grid {
+        gap:35px
+      }
+
+
+
+      .faq-grid {
+        gap:55px
+      }
+      .hero h1 {
+        font-size:103px
+      }
+      .gallery-item {
+        min-height:285px
+      }
+      .venue h3 {
+        font-size:29px
+      }
+    }
+    @media(max-width:850px) {
+      .nav-inner {
+        height:74px
+      }
+      .brand img {
+        width:145px
+      }
+      .menu-toggle {
+        display:block
+      }
+      .nav-links {
+        display:none;
+        position:absolute;
+        top:74px;
+        left:0;
+        right:0;
+        flex-direction:column;
+        align-items:stretch;
+        gap:0;
+        background:var(--dark);
+        padding:14px 32px 26px;
+        border-bottom:1px solid #66725b;
+        box-shadow:0 20px 30px #0005
+      }
+      .nav-links.is-open {
+        display:flex
+      }
+      .nav-links>a:not(.btn) {
+        font-size:15px;
+        padding:15px 0;
+        border-bottom:1px solid #ffffff15
+      }
+      .nav-links .btn {
+        margin:18px 0 0
+      }
+      .hero {
+        min-height:625px
+      }
+      .hero h1 {
+        font-size:100px
+      }
+      .hero-photo {
+        width:80%;
+        opacity:.85
+      }
+      .hero-content {
+        padding-top:61px
+      }
+      .hero-caption {
+        display:none
+      }
+      .section {
+        padding:74px 0
+      }
+      .facilities-grid {
+        gap:28px
+      }
+      .facility-image {
+        min-height:515px
+      }
+      .facility-row {
+        grid-template-columns:22px 1fr 35px;
+        gap:10px;
+        padding:23px 0
+      }
+      .facility-row h3 {
+        font-size:30px
+      }
+      .facility-row p {
+        font-size:12px
+      }
+      .round-link {
+        width:35px;
+        height:35px
+      }
+
+
+
+
+
+
+      .gallery-grid {
+        grid-template-columns:1.25fr 1fr
+      }
+      .gallery-item:first-child {
+        grid-row:span 2
+      }
+      .gallery-item {
+        min-height:220px
+      }
+      .visit-top {
+        gap:30px
+      }
+      .venue-grid {
+        grid-template-columns:1fr
+      }
+      .venue,.venue+.venue {
+        border-left:0;
+        padding:23px 0;
+        display:grid;
+        grid-template-columns:30px 1fr 1fr;
+        column-gap:20px
+      }
+      .venue+.venue {
+        border-top:1px solid #52604a
+      }
+      .venue-index {
+        grid-row:span 4;
+        padding-top:10px
+      }
+      .venue h3 {
+        margin:0 0 10px;
+        grid-column:2
+      }
+      .venue p {
+        grid-column:2;
+        grid-row:2 / span 3;
+        min-height:0;
+        max-width:270px
+      }
+      .venue>a {
+        grid-column:3;
+        grid-row:1;
+        margin-top:3px
+      }
+      .venue .directions {
+        grid-row:3
+      }
+      .venue .contact-label {
+        grid-column:3;
+        grid-row:2;
+        margin:0
+      }
+      .faq-grid {
+        grid-template-columns:1fr;
+        gap:35px
+      }
+      .faq-intro {
+        display:grid;
+        grid-template-columns:1fr 1fr;
+        column-gap:30px
+      }
+      .faq-intro .eyebrow {
+        grid-column:1 / -1
+      }
+      .faq-intro h2 {
+        grid-row:2 / span 2
+      }
+      .faq-intro p {
+        margin:0
+      }
+      .faq-intro .text-link {
+        justify-self:start;
+        margin-top:12px
+      }
+      .more-inner {
+        align-items:flex-start
+      }
+      .more-links {
+        gap:20px
+      }
+      .closing h2 {
+        max-width:440px
+      }
+      .closing .btn {
+        white-space:nowrap
+      }
+    }
+    @media(max-width:560px) {
+      .container {
+        width:calc(100% - 40px)
+      }
+      .proposal-bar {
+        font-size:9px;
+        padding:7px 8px;
+        letter-spacing:0
+      }
+      .proposal-bar span {
+        margin:0 4px
+      }
+      .nav-inner {
+        height:68px
+      }
+      .brand img {
+        width:137px
+      }
+      .nav-links {
+        top:68px;
+        padding-inline:20px
+      }
+      .hero {
+        min-height:635px
+      }
+      .hero-photo {
+        width:100%;
+        object-position:60% 62%;
+        opacity:.5
+      }
+      .hero::before {
+        background:linear-gradient(90deg,#111813e8,#11181368),linear-gradient(0deg,#111813ce,transparent 65%)
+      }
+      .hero-content {
+        padding-top:52px;
+        padding-bottom:95px
+      }
+      .hero .eyebrow {
+        font-size:9px;
+        margin-bottom:27px
+      }
+      .hero h1 {
+        font-size:clamp(72px,19vw,103px)
+      }
+      .hero-description {
+        font-size:13px;
+        max-width:300px;
+        margin-top:26px
+      }
+      .hero-actions {
+        flex-wrap:wrap;
+        gap:10px;
+        margin-top:27px
+      }
+      .hero-actions .btn {
+        font-size:11px;
+        padding-inline:16px;
+        gap:15px
+      }
+      .hero-bottom {
+        bottom:21px;
+        align-items:start;
+        flex-direction:column;
+        gap:7px
+      }
+      .hero-bottom p {
+        font-size:8px;
+        letter-spacing:.1em
+      }
+      .hero-bottom a {
+        font-size:10px
+      }
+      .sport-ribbon {
+        padding:19px 0
+      }
+      .ribbon-inner {
+        gap:6px;
+        flex-wrap:nowrap;
+        justify-content:space-between
+      }
+      .ribbon-inner .ribbon-label {
+        display:none
+      }
+      .ribbon-inner span {
+        font-size:19px
+      }
+      .ribbon-inner i {
+        font-size:12px
+      }
+      .section {
+        padding:62px 0
+      }
+      .eyebrow {
+        font-size:9px;
+        margin-bottom:16px
+      }
+      h2 {
+        font-size:49px
+      }
+      .section-top {
+        display:block;
+        margin-bottom:29px
+      }
+      .section-top>p {
+        font-size:12px;
+        margin-top:19px;
+        max-width:320px
+      }
+      .facilities-grid {
+        grid-template-columns:1fr;
+        gap:27px
+      }
+      .facility-image {
+        min-height:340px
+      }
+      .facility-row {
+        padding:23px 0;
+        grid-template-columns:27px 1fr 40px;
+        gap:13px
+      }
+      .facility-row h3 {
+        font-size:32px
+      }
+      .facility-row p {
+        font-size:12px
+      }
+      .round-link {
+        width:40px;
+        height:40px
+      }
+      .facility-note {
+        font-size:10px
+      }
+
+
+
+
+
+
+
+      .gallery-grid {
+        grid-template-columns:1fr 1fr;
+        gap:10px
+      }
+      .gallery-item:first-child {
+        grid-column:span 2;
+        grid-row:auto;
+        min-height:280px
+      }
+      .gallery-item {
+        min-height:220px
+      }
+      .gallery-caption {
+        left:13px;
+        right:13px;
+        bottom:14px;
+        font-size:10px
+      }
+      .gallery-caption b {
+        flex-shrink:0;
+        width:25px;
+        height:25px
+      }
+      .gallery-foot {
+        display:block
+      }
+      .gallery-foot button {
+        margin-top:12px
+      }
+      .visit-top {
+        grid-template-columns:1fr;
+        gap:23px;
+        margin-bottom:30px
+      }
+      .visit-top p {
+        font-size:12px
+      }
+      .venue,.venue+.venue {
+        grid-template-columns:23px 1fr;
+        column-gap:11px
+      }
+      .venue h3 {
+        font-size:31px
+      }
+      .venue p {
+        grid-column:2;
+        grid-row:2;
+        max-width:none;
+        font-size:11px;
+        margin-bottom:4px
+      }
+      .venue>a {
+        grid-column:2;
+        grid-row:3;
+        margin-top:12px
+      }
+      .venue .directions {
+        grid-row:5;
+        margin-top:8px
+      }
+      .venue .contact-label {
+        grid-column:2;
+        grid-row:4;
+        margin-top:4px;
+        font-size:9px
+      }
+      .contact-strip {
+        align-items:start;
+        flex-direction:column;
+        gap:14px
+      }
+      .contact-strip a {
+        font-size:11px
+      }
+      .faq-intro {
+        display:block
+      }
+      .faq-intro p {
+        margin-top:18px;
+        max-width:300px
+      }
+      .faq-intro .text-link {
+        margin-top:10px
+      }
+      .faq-list summary {
+        font-size:12px;
+        padding-block:20px
+      }
+      .more-inner {
+        display:block
+      }
+      .more-links {
+        margin-top:15px;
+        gap:25px;
+        flex-wrap:wrap
+      }
+      .more-links a {
+        font-size:11px
+      }
+      .closing {
+        padding:38px 0
+      }
+      .closing-inner {
+        display:block
+      }
+      .closing h2 {
+        font-size:55px
+      }
+      .closing .btn {
+        margin-top:24px
+      }
+      .footer-top {
+        align-items:start;
+        flex-direction:column;
+        gap:19px
+      }
+      .footer-links {
+        gap:19px;
+        font-size:10px;
+        flex-wrap:wrap
+      }
+      .footer-bottom {
+        flex-direction:column;
+        gap:9px;
+        margin-top:22px
+      }
+
+
+
+      .lightbox {
+        padding:13px;
+        width:96vw
+      }
+      .lightbox-image {
+        height:56vh
+      }
+      .lightbox-bottom {
+        gap:10px
+      }
+      .lightbox-bottom p {
+        font-size:10px;
+        max-width:200px
+      }
+      .lightbox-top h2 {
+        font-size:11px
+      }
+    }
+    @media(max-width:360px) {
+      .ribbon-inner span { font-size:17px; }
+      .ribbon-inner { gap:3px; }
+    }
+    @media(prefers-reduced-motion:reduce) {
+      html {
+        scroll-behavior:auto
+      }
+      *,*::before,*::after {
+        animation:none!important;
+        transition:none!important
+      }
+      .btn:hover {
+        transform:none
+      }
+    }
+  </style>
+</head>
+<body>
+  <a class="skip" href="#main">Skip to content</a>
+  <div class="proposal-bar">WEBSITE CONCEPT <span>/</span> Sports gear. Indoor sports. One Befit.</div>
+  <header>
+    <div class="container nav-inner">
+      <a class="brand" href="#main" aria-label="Befit home"><img src="assets/logo.png" alt="Befit Marketing" width="1036" height="336"></a>
+      <button class="menu-toggle" type="button" aria-expanded="false" aria-controls="navigation" aria-label="Open menu">☰</button>
+      <nav class="nav-links" id="navigation" aria-label="Main navigation">
+        <a href="#products">Products</a><a href="#sports">Indoor sports</a><a href="#gallery">The spaces</a><a href="#showrooms">Showrooms</a>
+        <a href="#showrooms" class="btn btn-primary">Contact Befit <span class="arrow" aria-hidden="true">↗</span></a>
+      </nav>
+    </div>
+  </header>
+  <main id="main">
+    <section class="hero dark" aria-labelledby="hero-heading">
+      <img class="hero-photo" src="assets/venue-interior.jpg" alt="Players on a covered Befit court, viewed from the spectator area" width="1152" height="1536" fetchpriority="high">
+      <div class="container hero-content">
+        <p class="eyebrow">Sports retail & indoor sports · Sri Lanka</p>
+        <h1 id="hero-heading">Gear up.<br>Get out.<span>Play.</span></h1>
+        <p class="hero-description">From the gear you need to the spaces you play in. Explore sports equipment, fitness essentials and indoor sports with Befit.</p>
+        <div class="hero-actions"><a class="btn btn-primary" href="#products">Explore products <span class="arrow" aria-hidden="true">↗</span></a><a class="btn btn-outline" href="#sports">Discover indoor sports <span class="arrow" aria-hidden="true">↓</span></a></div>
+        <span class="hero-caption">Inside Befit / From our venue gallery</span>
+      </div>
+      <div class="container hero-bottom"><p>Mawanella · Hemmathagama · Paragahadeniya</p><a href="#gallery">A closer look at the spaces <span aria-hidden="true">↓</span></a></div>
+    </section>
+    <div class="sport-ribbon" aria-label="Sports at Befit Mawanella"><div class="container ribbon-inner"><span class="ribbon-label">Find your<br>kind of play</span><span>Futsal</span><i aria-hidden="true">✳</i><span>Cricket</span><i aria-hidden="true">✳</i><span>Badminton</span><i aria-hidden="true">✳</i><span>Fitness</span></div></div>
+
+    <section id="products" class="section catalogue" aria-labelledby="products-heading">
+      <div class="container">
+        <div class="section-top"><div><p class="eyebrow">01 / The gear to get going</p><h2 id="products-heading">Find your sport.<br>We’ve got the gear.</h2></div><p>Fitness essentials, team sports and more. Discover a selection from Befit’s product catalogue, for retail and wholesale enquiries.</p></div>
+        <div class="catalogue-toolbar">
+          <div class="product-filters" role="group" aria-label="Filter products by category">
+            <button type="button" data-filter="All" aria-pressed="true">All products</button><button type="button" data-filter="Fitness" aria-pressed="false">Fitness</button><button type="button" data-filter="Team sports" aria-pressed="false">Team sports</button><button type="button" data-filter="Footwear" aria-pressed="false">Footwear</button><button type="button" data-filter="Accessories" aria-pressed="false">Accessories</button>
+          </div>
+          <div class="product-search"><label class="sr-only" for="product-search">Search featured products</label><span aria-hidden="true">⌕</span><input type="search" id="product-search" placeholder="Find your gear…" autocomplete="off"><button type="button" id="clear-search" aria-label="Clear product search" hidden>×</button></div>
+        </div>
+        <div class="catalogue-meta"><p id="product-count" role="status" aria-live="polite">Showing 6 featured products</p><span>Prices & stock confirmed by the showroom</span></div>
+        <div class="product-grid" id="product-grid">
+          <article class="product-card" data-category="Fitness" data-name="1.5kg Medicine Ball">
+            <button class="product-open" type="button" data-product="0" aria-label="View 1.5kg Medicine Ball">
+              <span class="product-image"><img src="assets/product-0.png" alt="1.5kg Medicine Ball" loading="lazy"><span class="product-view" aria-hidden="true">View details ↗</span></span>
+              <span class="product-category">Fitness</span><h3>1.5kg Medicine Ball</h3>
+            </button>
+            <div class="product-bottom"><span>Enquire for price</span><button type="button" data-product="0" aria-label="Details and enquiries for 1.5kg Medicine Ball">↗</button></div>
+          </article>
+          <article class="product-card" data-category="Fitness" data-name="AB Coaster">
+            <button class="product-open" type="button" data-product="1" aria-label="View AB Coaster">
+              <span class="product-image"><img src="assets/product-3.webp" alt="AB Coaster" loading="lazy"><span class="product-view" aria-hidden="true">View details ↗</span></span>
+              <span class="product-category">Fitness</span><h3>AB Coaster</h3>
+            </button>
+            <div class="product-bottom"><span>Enquire for price</span><button type="button" data-product="1" aria-label="Details and enquiries for AB Coaster">↗</button></div>
+          </article>
+          <article class="product-card" data-category="Fitness" data-name="AB Wheel">
+            <button class="product-open" type="button" data-product="2" aria-label="View AB Wheel">
+              <span class="product-image"><img src="assets/product-8.avif" alt="AB Wheel" loading="lazy"><span class="product-view" aria-hidden="true">View details ↗</span></span>
+              <span class="product-category">Fitness</span><h3>AB Wheel</h3>
+            </button>
+            <div class="product-bottom"><span>Enquire for price</span><button type="button" data-product="2" aria-label="Details and enquiries for AB Wheel">↗</button></div>
+          </article>
+          <article class="product-card" data-category="Footwear" data-name="Adidas Jogging Shoe">
+            <button class="product-open" type="button" data-product="3" aria-label="View Adidas Jogging Shoe">
+              <span class="product-image"><img src="assets/product-10.avif" alt="Adidas Jogging Shoe" loading="lazy"><span class="product-view" aria-hidden="true">View details ↗</span></span>
+              <span class="product-category">Footwear</span><h3>Adidas Jogging Shoe</h3>
+            </button>
+            <div class="product-bottom"><span>Enquire for price</span><button type="button" data-product="3" aria-label="Details and enquiries for Adidas Jogging Shoe">↗</button></div>
+          </article>
+          <article class="product-card" data-category="Team sports" data-name="AMGROW Basketball #7 &amp; #5">
+            <button class="product-open" type="button" data-product="4" aria-label="View AMGROW Basketball #7 &amp; #5">
+              <span class="product-image"><img src="assets/product-11.webp" alt="AMGROW Basketball #7 &amp; #5" loading="lazy"><span class="product-view" aria-hidden="true">View details ↗</span></span>
+              <span class="product-category">Team sports</span><h3>AMGROW Basketball #7 &amp; #5</h3>
+            </button>
+            <div class="product-bottom"><span>Enquire for price</span><button type="button" data-product="4" aria-label="Details and enquiries for AMGROW Basketball #7 &amp; #5">↗</button></div>
+          </article>
+          <article class="product-card" data-category="Accessories" data-name="Ankle Supporter – B511">
+            <button class="product-open" type="button" data-product="5" aria-label="View Ankle Supporter – B511">
+              <span class="product-image"><img src="assets/product-14.jpg" alt="Ankle Supporter – B511" loading="lazy"><span class="product-view" aria-hidden="true">View details ↗</span></span>
+              <span class="product-category">Accessories</span><h3>Ankle Supporter – B511</h3>
+            </button>
+            <div class="product-bottom"><span>Enquire for price</span><button type="button" data-product="5" aria-label="Details and enquiries for Ankle Supporter – B511">↗</button></div>
+          </article>
+        </div>
+        <div class="product-empty" id="product-empty" hidden><h3>No matching gear just yet.</h3><p>Try another search or browse all featured products.</p><button class="btn btn-dark" id="reset-products" type="button">Show all products <span aria-hidden="true">↗</span></button></div>
+        <div class="catalogue-footer"><p>A curated preview of Befit’s catalogue. Looking for something else?</p><a class="text-link" href="https://befit.lk/shop/" target="_blank" rel="noopener noreferrer">Browse the full catalogue <span aria-hidden="true">↗</span></a></div>
+        <noscript><p>Enable JavaScript for product search and detail previews, or <a href="https://befit.lk/shop/">browse Befit’s existing catalogue</a>.</p></noscript>
+      </div>
+    </section>
+
+    <section id="sports" class="section" aria-labelledby="sports-heading">
+      <div class="container">
+        <div class="section-top"><div><p class="eyebrow">02 / Find your sport</p><h2 id="sports-heading">Your people.<br>Your place to play.</h2></div><p>From a team kickabout to your next training session. Explore the sports listed at Befit’s Mawanella academy.</p></div>
+        <div class="facilities-grid">
+          <div class="facility-image"><img src="assets/venue-play.jpg" alt="A game in progress inside Befit's netted indoor sports venue" width="1152" height="1536" loading="lazy"><div class="image-tag">A little less screen time. More game time. <span aria-hidden="true">↗</span></div></div>
+          <div><div class="facility-list">
+            <article class="facility-row"><span class="facility-number">01</span><div><h3>Futsal</h3><p>Get the group together and make the next match happen. Find a Befit venue for your team.</p></div><a class="round-link" href="#visit" aria-label="Contact Befit about futsal"><span aria-hidden="true">↗</span></a></article>
+            <article class="facility-row"><span class="facility-number">02</span><div><h3>Cricket</h3><p>Make room for practice. Explore cricket at the Mawanella indoor sports academy.</p></div><a class="round-link" href="#visit" aria-label="Contact Befit about cricket"><span aria-hidden="true">↗</span></a></article>
+            <article class="facility-row"><span class="facility-number">03</span><div><h3>Badminton</h3><p>A reason to put down your phone and pick up a racket. Plan your next session in Mawanella.</p></div><a class="round-link" href="#visit" aria-label="Contact Befit about badminton"><span aria-hidden="true">↗</span></a></article>
+            <article class="facility-row"><span class="facility-number">04</span><div><h3>Gym & training</h3><p>Ask the team about the Mawanella gym and academy training for young athletes.</p></div><a class="round-link" href="tel:+94771360369" aria-label="Call Befit about gym and training"><span aria-hidden="true">↗</span></a></article>
+          </div><p class="facility-note">Facilities vary by branch. Please contact the team to confirm current services, equipment and session arrangements.</p></div>
+        </div>
+      </div>
+    </section>
+
+    <section id="gallery" class="section" aria-labelledby="gallery-heading"><div class="container">
+      <div class="section-top"><div><p class="eyebrow">03 / Beyond the sidelines</p><h2 id="gallery-heading">See you<br>on the inside.</h2></div><p>Real spaces. Real games.<br>A look around Befit, through photographs from the existing venue collection.</p></div>
+      <div class="gallery-grid">
+        <button class="gallery-item" type="button" data-gallery="0" aria-label="Open gallery: Paragahadeniya at night"><img src="assets/paragahadeniya.jpg" alt="Befit's covered Paragahadeniya court illuminated at night" width="1536" height="1152" loading="lazy"><span class="gallery-caption">Under the lights / Paragahadeniya <b aria-hidden="true">↗</b></span></button>
+        <button class="gallery-item" type="button" data-gallery="1" aria-label="Open gallery: Inside the court"><img src="assets/venue-interior.jpg" alt="Indoor sports court and spectator seating at Befit" width="1152" height="1536" loading="lazy"><span class="gallery-caption">A view from the sidelines <b aria-hidden="true">↗</b></span></button>
+        <button class="gallery-item" type="button" data-gallery="2" aria-label="Open gallery: Paragahadeniya interior"><img src="assets/court-evening.jpg" alt="Indoor playing surface surrounded by protective nets at Paragahadeniya" width="1280" height="960" loading="lazy"><span class="gallery-caption">Room for your next game <b aria-hidden="true">↗</b></span></button>
+      </div><div class="gallery-foot"><p>Photography from Befit’s official website. Images include archive material; contact the team for current venue details.</p><button type="button" data-gallery="0">View all 6 photographs <span aria-hidden="true">↗</span></button></div>
+    </div></section>
+
+    <section id="showrooms" class="section showrooms" aria-labelledby="showrooms-heading"><div class="container">
+      <div class="section-top"><div><p class="eyebrow">04 / Come find your gear</p><h2 id="showrooms-heading">Online inspiration.<br>In-store expertise.</h2></div><p>Shopping for yourself, your team or your business? Speak to a Befit showroom about products, quantities and current availability.</p></div>
+      <div class="showroom-grid">
+        <article class="showroom"><span class="showroom-number" aria-hidden="true">01</span><div><p class="eyebrow">Befit showroom</p><h3>Mawanella</h3><address>No.130/2, Hassan Mawatha, A1,<br>Mawanella 71500</address><a class="text-link" href="tel:+94771699991">+94 77 169 9991 <span aria-hidden="true">↗</span></a></div></article>
+        <article class="showroom"><span class="showroom-number" aria-hidden="true">02</span><div><p class="eyebrow">Befit showroom</p><h3>Colombo</h3><address>343, Main Street,<br>Pettah, Colombo</address><a class="text-link" href="tel:+94770707010">+94 77 070 7010 <span aria-hidden="true">↗</span></a></div></article>
+      </div><div class="showroom-note"><p>Retail & wholesale enquiries welcome. Call ahead to confirm opening hours and the products you need.</p><a href="mailto:team@befit.lk">team@befit.lk ↗</a></div>
+    </div></section>
+
+    <section id="visit" class="section visit dark" aria-labelledby="visit-heading"><div class="container">
+      <div class="visit-top"><div><p class="eyebrow">05 / Find your venue</p><h2 id="visit-heading">A game starts<br>with a place.</h2></div><p>Choose your branch and speak directly with the team. Confirm your playing time, rates and arrival details before heading over.</p></div>
+      <div class="venue-grid">
+        <article class="venue"><span class="venue-index">01 /</span><h3>Mawanella</h3><p>Indoor sports academy. Ask about futsal, cricket, badminton, gym and training.</p><a href="tel:+94773139991">+94 77 313 9991</a><span class="contact-label">Mawanella futsal enquiries</span><a class="directions" href="tel:+94773139991">Call for venue directions ↗</a></article>
+        <article class="venue"><span class="venue-index">02 /</span><h3>Hemmathagama</h3><p>Contact the Hemmathagama team to organise your next futsal session.</p><a href="tel:+94777692625">+94 77 769 2625</a><span class="contact-label">Hemmathagama futsal enquiries</span><a class="directions" href="https://www.google.com/maps/dir/?api=1&amp;destination=Befit%20Indoor%20Sports%20Court%2C%20Hemmathagama%2C%20Sri%20Lanka" target="_blank" rel="noopener noreferrer">Get directions on Google Maps ↗</a></article>
+        <article class="venue"><span class="venue-index">03 /</span><h3>Paragahadeniya</h3><p>For this branch, use Befit’s general hotline while its direct number is being verified.</p><a href="tel:+94771360369">+94 77 136 0369</a><span class="contact-label">General hotline · ask for this branch</span><a class="directions" href="tel:+94771360369">Call for venue directions ↗</a></article>
+      </div><div class="contact-strip"><p>Not sure where to start? We’ll help you find the right team.</p><a href="mailto:team@befit.lk">team@befit.lk ↗</a><a href="tel:+94771360369">General enquiries: +94 77 136 0369 ↗</a></div>
+    </div></section>
+
+    <section id="faqs" class="section" aria-labelledby="faq-heading"><div class="container faq-grid"><div class="faq-intro"><p class="eyebrow">06 / Before you visit</p><h2 id="faq-heading">Good<br>to know.</h2><p>A few things to help you choose your gear and plan your next game.</p><a class="text-link" href="#visit">Talk to your venue <span aria-hidden="true">↗</span></a></div><div class="faq-list">
+      <details><summary>How do I buy a product?</summary><p>Browse the collection and open a product to see its details. Contact the Colombo or Mawanella showroom to confirm price, stock and how to place your order. This website proposal does not process purchases.</p></details>
+      <details><summary>Are the products and prices up to date?</summary><p>The featured products are taken from Befit’s existing catalogue. No live stock or pricing feed is connected here, so please check current availability and prices with the showroom.</p></details>
+      <details><summary>Do you supply retail and wholesale customers?</summary><p>Befit’s website describes both retail and wholesale supply. Contact the showrooms with the products and quantities you need to discuss your enquiry.</p></details>
+      <details><summary>Which sports can I play at Befit?</summary><p>Befit’s official website lists futsal, cricket, badminton and gym facilities at the Mawanella academy. Other branches have futsal contacts. Ask your chosen branch about its current facilities and training options.</p></details>
+      <details><summary>What are the rates and opening hours?</summary><p>Please contact your chosen venue for current rates, opening hours and available sessions. The venue team can help you arrange a visit by phone.</p></details>
+      <details><summary>What should I bring for my session?</summary><p>Check footwear, equipment and arrival requirements with the team before your visit. Equipment availability and venue rules have not been confirmed for this proposal.</p></details>
+      <details><summary>Can I arrange training or a regular session?</summary><p>The Mawanella academy describes training for young athletes. Speak to Befit about current programmes, coaching and recurring sessions; contact the team directly to discuss arrangements.</p></details>
+      <details><summary>How do I change or cancel a real booking?</summary><p>Contact the venue where you arranged the booking. Ask about its change and cancellation terms before confirming; no policy has been assumed in this prototype.</p></details>
+    </div></div></section>
+
+    <section class="more-befit" aria-labelledby="more-heading"><div class="container more-inner"><div><h3 id="more-heading">More to Befit.</h3><p>From sports equipment to building your own indoor arena.</p></div><div class="more-links"><a href="#showrooms">Visit the showrooms ↗</a><a href="https://befit.lk/4237-2/" target="_blank" rel="noopener noreferrer">Befit Construction ↗</a></div></div></section>
+    <section class="closing" aria-label="Explore Befit products"><div class="container closing-inner"><h2>Good gear.<br>Great games.</h2><a class="btn btn-dark" href="#products">Find your next piece of kit <span class="arrow" aria-hidden="true">↗</span></a></div></section>
+  </main>
+  <footer><div class="container"><div class="footer-top"><a href="#main" aria-label="Back to Befit home"><img src="assets/logo.png" alt="Befit Marketing" width="1036" height="336" loading="lazy"></a><div class="footer-links"><a href="#products">Products</a><a href="#sports">Indoor sports</a><a href="#showrooms">Showrooms</a><a href="https://www.instagram.com/befit.lk/" target="_blank" rel="noopener noreferrer">Instagram ↗</a><a href="https://befit.lk/" target="_blank" rel="noopener noreferrer">Existing website ↗</a></div></div><div class="footer-bottom"><p>Befit website proposal · Independently prepared for an owner demonstration.</p><span>Product catalogue preview · Enquire for prices and availability.</span><a href="#main">Back to top ↑</a></div></div></footer>
+
+  <dialog class="lightbox dark" id="lightbox" aria-labelledby="lightbox-title"><div class="lightbox-top"><h2 id="lightbox-title">Befit venue gallery</h2><button class="icon-btn" id="gallery-close" type="button" aria-label="Close gallery" autofocus>×</button></div><img class="lightbox-image" id="lightbox-image" alt=""><div class="lightbox-bottom"><p id="lightbox-caption" aria-live="polite"></p><div class="lightbox-controls"><button class="icon-btn" id="gallery-prev" type="button" aria-label="Previous photograph">←</button><button class="icon-btn" id="gallery-next" type="button" aria-label="Next photograph">→</button></div></div></dialog>
+
+  <dialog id="product-dialog" class="product-dialog" aria-labelledby="product-title" aria-describedby="product-description">
+    <div class="product-dialog-top"><span>BEFIT / PRODUCT DETAILS</span><button type="button" class="product-close" id="product-close" aria-label="Close product details" autofocus>×</button></div>
+    <div class="product-detail-layout"><div class="product-detail-image"><img id="product-detail-image" alt=""></div><div class="product-detail-copy">
+      <p class="eyebrow" id="product-detail-category"></p><h2 id="product-title"></h2><p id="product-description"></p>
+      <dl class="product-facts"><div><dt id="product-fact-label"></dt><dd id="product-fact-value"></dd></div><div><dt>Price & availability</dt><dd>Confirm with showroom</dd></div></dl>
+      <p class="product-enquiry-note">Interested in this product? Contact a showroom for the current price, stock and ordering options.</p>
+      <div class="product-enquiry-links"><a class="btn btn-dark" href="tel:+94770707010">Call Colombo <span aria-hidden="true">↗</span></a><a class="btn product-secondary" href="tel:+94771699991">Call Mawanella <span aria-hidden="true">↗</span></a></div>
+      <a class="text-link product-source" id="product-source" target="_blank" rel="noopener noreferrer">View on Befit’s existing website <span aria-hidden="true">↗</span></a>
+      <p class="product-source-note">Catalogue preview. No purchase is made on this page.</p>
+    </div></div>
+  </dialog>
+
+  <script>
+    'use strict';
+    // Everything below is local UI state. No requests, storage, payments or submissions.
+    const $ = (selector) => document.querySelector(selector);
+    const $$ = (selector) => [...document.querySelectorAll(selector)];
+
+    // Responsive navigation: hide collapsed links from keyboard users and close on Escape.
+    const menuButton = $('.menu-toggle');
+    const navigation = $('#navigation');
+    function closeMenu(restoreFocus = false) {
+      menuButton.setAttribute('aria-expanded', 'false');
+      menuButton.setAttribute('aria-label', 'Open menu');
+      menuButton.textContent = '☰';
+      navigation.classList.remove('is-open');
+      if (restoreFocus) menuButton.focus();
+    }
+    menuButton.addEventListener('click', () => {
+      const opening = menuButton.getAttribute('aria-expanded') !== 'true';
+      navigation.classList.toggle('is-open', opening);
+      menuButton.setAttribute('aria-expanded', String(opening));
+      menuButton.setAttribute('aria-label', opening ? 'Close menu' : 'Open menu');
+      menuButton.textContent = opening ? '×' : '☰';
+    });
+    document.addEventListener('keydown', event => {
+      if (event.key === 'Escape' && menuButton.getAttribute('aria-expanded') === 'true') closeMenu(true);
+    });
+    document.addEventListener('click', event => {
+      if (!event.target.closest('header')) closeMenu();
+    });
+    navigation.querySelectorAll('a').forEach(link => link.addEventListener('click', () => {
+      const wasOpen = menuButton.getAttribute('aria-expanded') === 'true';
+      closeMenu();
+      if (wasOpen) {
+        const target = document.querySelector(link.hash);
+        if (target) { target.setAttribute('tabindex', '-1'); target.focus({preventScroll:true}); }
+      }
+    }));
+    matchMedia('(min-width:851px)').addEventListener('change', () => closeMenu());
+
+    // Product data is a curated snapshot of official pages, never a live inventory feed.
+    const products = [
+      {
+            "name": "1.5kg Medicine Ball",
+            "category": "Fitness",
+            "image": "assets/product-0.png",
+            "url": "https://befit.lk/product/1-5kg-medicine-ball/",
+            "description": "A 1.5kg medicine ball for adding variety to home or gym training, with a textured surface for grip.",
+            "factLabel": "Listed weight",
+            "factValue": "1.5kg"
+      },
+      {
+            "name": "AB Coaster",
+            "category": "Fitness",
+            "image": "assets/product-3.webp",
+            "url": "https://befit.lk/product/ab-coaster/",
+            "description": "A core-training machine with a curved movement path, padded support and handlebars.",
+            "factLabel": "Product type",
+            "factValue": "Core-training machine"
+      },
+      {
+            "name": "AB Wheel",
+            "category": "Fitness",
+            "image": "assets/product-8.avif",
+            "url": "https://befit.lk/product/ab-wheel/",
+            "description": "A compact exercise wheel with two wheels and padded handles for your training setup.",
+            "factLabel": "Design",
+            "factValue": "Dual wheel"
+      },
+      {
+            "name": "Adidas Jogging Shoe",
+            "category": "Footwear",
+            "image": "assets/product-10.avif",
+            "url": "https://befit.lk/product/adidas-jogging-shoe/",
+            "description": "Jogging footwear with a breathable upper and cushioned sole. Ask the showroom about available sizes.",
+            "factLabel": "Sizes",
+            "factValue": "Confirm with showroom"
+      },
+      {
+            "name": "AMGROW Basketball #7 & #5",
+            "category": "Team sports",
+            "image": "assets/product-11.webp",
+            "url": "https://befit.lk/product/amgrow-basketball-7-5/",
+            "description": "AMGROW basketballs listed in sizes 7 and 5, with a rubber cover. Confirm the size you need with the team.",
+            "factLabel": "Listed sizes",
+            "factValue": "7 and 5"
+      },
+      {
+            "name": "Ankle Supporter – B511",
+            "category": "Accessories",
+            "image": "assets/product-14.jpg",
+            "url": "https://befit.lk/product/ankle-supporter-b511/",
+            "description": "An adjustable ankle support listed as model B511. Ask the showroom about sizing and product suitability.",
+            "factLabel": "Listed model",
+            "factValue": "B511"
+      }
+];
+    const searchInput = $('#product-search');
+    let selectedCategory = 'All';
+    function filterProducts() {
+      const query = searchInput.value.trim().toLocaleLowerCase();
+      let visible = 0;
+      $$('.product-card').forEach((card, index) => {
+        const product = products[index];
+        const categoryMatches = selectedCategory === 'All' || product.category === selectedCategory;
+        const searchMatches = (product.name + ' ' + product.category).toLocaleLowerCase().includes(query);
+        card.hidden = !categoryMatches || !searchMatches;
+        if (!card.hidden) visible++;
+      });
+      $('#product-count').textContent = `Showing ${visible} of ${products.length} featured products`;
+      $('#product-empty').hidden = visible !== 0;
+      $('#clear-search').hidden = searchInput.value.length === 0;
+    }
+    $$('[data-filter]').forEach(button => button.addEventListener('click', () => {
+      selectedCategory = button.dataset.filter;
+      $$('[data-filter]').forEach(item => item.setAttribute('aria-pressed',String(item === button)));
+      filterProducts();
+    }));
+    searchInput.addEventListener('input', filterProducts);
+    $('#clear-search').addEventListener('click', () => { searchInput.value=''; filterProducts(); searchInput.focus(); });
+    $('#reset-products').addEventListener('click', () => {
+      searchInput.value=''; selectedCategory='All';
+      $$('[data-filter]').forEach(button => button.setAttribute('aria-pressed',String(button.dataset.filter==='All')));
+      filterProducts(); searchInput.focus();
+    });
+    filterProducts();
+
+    const productDialog = $('#product-dialog');
+    let productOpener = null;
+    $$('[data-product]').forEach(button => button.addEventListener('click', () => {
+      const product = products[Number(button.dataset.product)];
+      productOpener = button;
+      $('#product-title').textContent=product.name;
+      $('#product-detail-category').textContent=product.category;
+      $('#product-detail-image').src=product.image;
+      $('#product-detail-image').alt=product.name;
+      $('#product-description').textContent=product.description;
+      $('#product-fact-label').textContent=product.factLabel;
+      $('#product-fact-value').textContent=product.factValue;
+      $('#product-source').href=product.url;
+      productDialog.showModal(); productDialog.scrollTop=0;
+      document.body.classList.add('modal-open');
+    }));
+    $('#product-close').addEventListener('click', () => productDialog.close());
+    productDialog.addEventListener('keydown', event => {
+      if (event.key !== 'Tab') return;
+      const controls=[...productDialog.querySelectorAll('button,a[href]')];
+      const first=controls[0], last=controls[controls.length-1];
+      if(event.shiftKey && document.activeElement===first){event.preventDefault();last.focus();}
+      else if(!event.shiftKey && document.activeElement===last){event.preventDefault();first.focus();}
+    });
+    productDialog.addEventListener('click', event => {
+      const rect=productDialog.getBoundingClientRect();
+      if(event.target===productDialog && (event.clientX<rect.left || event.clientX>rect.right || event.clientY<rect.top || event.clientY>rect.bottom)) productDialog.close();
+    });
+    productDialog.addEventListener('close', () => {
+      document.body.classList.remove('modal-open');
+      productOpener?.focus({preventScroll:true});
+    });
+
+    // Native dialog provides background inertness, focus containment and Escape support.
+    const gallery = [
+      {src:'assets/paragahadeniya.jpg',caption:'Under the lights · Paragahadeniya',alt:'Befit Paragahadeniya covered sports venue at night'},
+      {src:'assets/venue-interior.jpg',caption:'From the sidelines · Befit venue collection',alt:'Indoor court and spectator seating in Befit’s venue collection'},
+      {src:'assets/court-evening.jpg',caption:'Inside the court · Paragahadeniya',alt:'Netted indoor playing area at Befit Paragahadeniya'},
+      {src:'assets/venue-play.jpg',caption:'Game in progress · Befit venue collection',alt:'Players enjoying a game inside a Befit sports venue'},
+      {src:'assets/complex.jpg',caption:'A view from outside · Official venue collection',alt:'Blue exterior of a covered Befit sports complex'},
+      {src:'assets/court.jpg',caption:'Mawanella · Archive photograph, 2019',alt:'Befit Mawanella futsal court in a 2019 inauguration tournament photograph'}
+    ];
+    const lightbox = $('#lightbox');
+    let galleryIndex = 0;
+    let galleryOpener = null;
+    function showPhoto(index) {
+      galleryIndex = (index + gallery.length) % gallery.length;
+      const photo = gallery[galleryIndex];
+      $('#lightbox-image').src = photo.src;
+      $('#lightbox-image').alt = photo.alt;
+      $('#lightbox-caption').textContent = `${String(galleryIndex+1).padStart(2,'0')} / ${gallery.length} — ${photo.caption}`;
+    }
+    $$('[data-gallery]').forEach(button => button.addEventListener('click', () => {
+      galleryOpener = button; showPhoto(Number(button.dataset.gallery));
+      lightbox.showModal(); document.body.classList.add('modal-open');
+    }));
+    $('#gallery-close').addEventListener('click', () => lightbox.close());
+    $('#gallery-prev').addEventListener('click', () => showPhoto(galleryIndex-1));
+    $('#gallery-next').addEventListener('click', () => showPhoto(galleryIndex+1));
+    lightbox.addEventListener('keydown', event => {
+      // Keep Tab cycling inside the gallery, including at the final control.
+      if (event.key === 'Tab') {
+        const controls = [...lightbox.querySelectorAll('button:not(:disabled)')];
+        const first = controls[0], last = controls[controls.length-1];
+        if (event.shiftKey && document.activeElement === first) { event.preventDefault(); last.focus(); }
+        else if (!event.shiftKey && document.activeElement === last) { event.preventDefault(); first.focus(); }
+      }
+      if (event.key === 'ArrowRight') { event.preventDefault(); showPhoto(galleryIndex+1); }
+      if (event.key === 'ArrowLeft') { event.preventDefault(); showPhoto(galleryIndex-1); }
+    });
+    lightbox.addEventListener('click', event => {
+      const rect = lightbox.getBoundingClientRect();
+      if (event.target === lightbox && (event.clientX < rect.left || event.clientX > rect.right || event.clientY < rect.top || event.clientY > rect.bottom)) lightbox.close();
+    });
+    lightbox.addEventListener('close', () => { document.body.classList.remove('modal-open'); galleryOpener?.focus({preventScroll:true}); });
+  </script>
+</body>
+</html>
